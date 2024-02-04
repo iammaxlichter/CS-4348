@@ -1,0 +1,10 @@
+Get
+CopyToX
+Get
+CopyToY
+Get
+AddX
+AddY
+Put
+Load value
+End
