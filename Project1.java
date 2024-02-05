@@ -14,83 +14,96 @@ public class Project1 {
             File file = new File(fileName);
             Scanner scan = new Scanner(file);
 
-            int PC = 0, SP = 0, IR = 0;
-            int latestNumberGenerated = 0;
-            int lastFilledIndex = -1;
+            int PC = 0, SP = 0, IR = 0, AC = 0;
             int X = 0, Y = 0;
-            int sum = 0;
-
-            int[] AC = new int[2000];
             int[] Memory = new int[2000];
 
             while (scan.hasNextLine()) {
-                String line = scan.nextLine();
+                String line = scan.nextLine().trim();
+
+                // Split the line by "//" and only consider the part before the delimiter
+                String[] parts = line.split("//");
+                if (parts.length > 0) {
+                    line = parts[0].trim(); // Take the part before the delimiter
+                }
+
+                // Ignore empty lines
+                if (line.isEmpty()) {
+                    continue;
+                }
+
                 switch (line) {
 
-                    case "Load value":
-                    int loadIndex = findNextAvailableIndex(AC);
-                    if (loadIndex != -1) {
-                        AC[loadIndex] = sum;
-                        System.out.println("Loaded value into AC[" + loadIndex + "]: " + AC[loadIndex]);
+                    case "1": // Load value
+                        if (scan.hasNextLine()) {
+                            String userInput = scan.nextLine();
+                            try {
+                                int value = Integer.parseInt(userInput);
+                                AC = value;
+                                System.out.println("Loaded value " + value + " into AC.");
+                            } catch (NumberFormatException e) {
+                                System.out.println("Invalid input. Please enter a valid integer.");
+                            }
+                        } else {
+                            System.out.println("No input found after '1'.");
+                        }
                         break;
-                    }
 
-                    case "Get":
+                    case "2": // Load addr
+
+                        break;
+
+                    case "8": // Get
                         int randomNumber = new Random().nextInt(100) + 1;
-                        int index = findNextAvailableIndex(AC);
-                        if (index != -1) {
-                            AC[index] = randomNumber;
-                            System.out.println("Random number assigned to AC[" + index + "]: " + AC[index]);
-                            latestNumberGenerated = randomNumber;
-                            lastFilledIndex = index;
+
+                        AC = randomNumber;
+                        System.out.println("Random number assigned to AC is: " + AC);
+                        break;
+
+                    case "9": // Put
+                        if (scan.hasNextLine()) {
+                            String nextLine = scan.nextLine();
+                            switch (nextLine) {
+                                case "1":
+                                    System.out.println("AC as an int: " + AC);
+                                    break;
+                                case "2":
+                                    System.out.println("AC as a char: " + (char) AC);
+                                    break;
+                                default:
+                                    System.out.println("Invalid input after '9': " + nextLine);
+                            }
                         } else {
-                            System.out.println("AC is full. Cannot assign the random number.");
+                            System.out.println("No input found after '9'");
                         }
                         break;
 
-                    case "Put":
-                        if (lastFilledIndex != -1) {
-                            sum = AC[lastFilledIndex];
-                            System.out.println(sum);
-                        } else {
-                            System.out.println("No number generated yet.");
-                        }
+                    case "10": // AddX
+                        AC = X + AC;
+                        System.out.println("adding " + X + " to the AC, AC is now: " + AC);
                         break;
 
-                    case "AddX":
-                        if (lastFilledIndex != -1) {
-                            AC[lastFilledIndex] += X;
-                            System.out.println("Added X to AC[" + lastFilledIndex + "]: " + AC[lastFilledIndex]);
-                        } else {
-                            System.out.println("No number generated yet.");
-                        }
+                    case "11": // AddY
+                        AC = Y + AC;
+                        System.out.println("adding " + Y + " to the AC, AC is now: " + AC);
                         break;
 
-                    case "AddY":
-                        if (lastFilledIndex != -1) {
-                            AC[lastFilledIndex] += Y;
-                            System.out.println("Added Y to AC[" + lastFilledIndex + "]: " + AC[lastFilledIndex]);
-                        } else {
-                            System.out.println("No number generated yet.");
-                        }
+                    case "14": // CopyToX
+                        X = AC;
+                        System.out.println("X is now: " + X);
                         break;
 
-                    case "CopyToX":
-                        X = latestNumberGenerated;
-                        System.out.println("Copied last number to X: " + X);
+                    case "16": // CopyToY
+                        Y = AC;
+                        System.out.println("Y is now: " + Y);
                         break;
 
-                    case "CopyToY":
-                        Y = latestNumberGenerated;
-                        System.out.println("Copied last number to Y: " + Y);
-                        break;
-
-                    case "End":
+                    case "50": // End
                         System.out.println("End of execution.");
                         return; // Terminate the program
 
                     default:
-                        System.out.println("Not Buzz Word");
+                        System.out.println("Not a recognized command: ");
                 }
             }
             scan.close();
@@ -99,13 +112,13 @@ public class Project1 {
         }
     }
 
-    // Find the next available index in the array AC
-    private static int findNextAvailableIndex(int[] array) {
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] == 0) {
-                return i;
-            }
-        }
-        return -1; // Array is full
-    }
+    // // Find the next available index in the array AC
+    // private static int findNextAvailableIndex(int[] array) {
+    // for (int i = 0; i < array.length; i++) {
+    // if (array[i] == 0) {
+    // return i;
+    // }
+    // }
+    // return -1; // Array is full
+    // }
 }

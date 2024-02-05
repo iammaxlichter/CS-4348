@@ -1,32 +1,32 @@
-case "Load value":
-System.out.println("Load valueLoad value");
-break;
-case "Load addr":
-System.out.println("Load addrLoad addr");
-break;
-case "LoadInd addr":
-System.out.println("LoadInd addrLoadInd addr");
-break;
-case "LoadIdxX addr":
-System.out.println("LoadIdxX addrLoadIdxX addr");
-break;
-case "LoadIdxY addr":
-System.out.println("LoadIdxY addrLoadIdxY addr");
-break;
-case "LoadSpX":
-System.out.println("LoadSpXLoadSpX");
-break;
-case "Store addr":
-System.out.println("Store addrStore addr");
-break;
+                case "Load value":
+                System.out.println("Load valueLoad value");
+                break;
+                case "Load addr":
+                System.out.println("Load addrLoad addr");
+                break;
+                case "LoadInd addr":
+                System.out.println("LoadInd addrLoadInd addr");
+                break;
+                case "LoadIdxX addr":
+                System.out.println("LoadIdxX addrLoadIdxX addr");
+                break;
+                case "LoadIdxY addr":
+                System.out.println("LoadIdxY addrLoadIdxY addr");
+                break;
+                case "LoadSpX":
+                System.out.println("LoadSpXLoadSpX");
+                break;
+                case "Store addr":
+                System.out.println("Store addrStore addr");
+                break;
 
-GET
-              
-PUT
+                GET
+                            
+                PUT
 
-ADDX 
+                ADDX 
 
-ADDY 
+                ADDY 
 
                 case "SubX":
                     System.out.println("SubXSubX");
