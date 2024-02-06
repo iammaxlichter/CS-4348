@@ -12,6 +12,10 @@ public class Project1 {
     public void Switch(){
         //put switch statement in here
     }
+
+    public void FileRead(){
+        //put file read in here
+    }
     public static void main(String[] args) {
         if (args.length != 1) {
             System.out.println("Usage: java Project1 <input_file>");
