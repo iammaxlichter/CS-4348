@@ -13,6 +13,10 @@ public class Project1 {
         //put switch statement in here
     }
 
+    public void ChildFuntion(){
+        
+    }
+
     public void FileRead(){
         //put file read in here
     }
