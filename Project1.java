@@ -3,6 +3,15 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Project1 {
+    int[] Memory = new int[2000];
+
+    public void ParentFunction(){
+        //put pc=0 sp=0 ir=0, ac=0 in here
+    }
+
+    public void Switch(){
+        //put switch statement in here
+    }
     public static void main(String[] args) {
         if (args.length != 1) {
             System.out.println("Usage: java Project1 <input_file>");
@@ -16,7 +25,7 @@ public class Project1 {
 
             int PC = 0, SP = 0, IR = 0, AC = 0;
             int X = 0, Y = 0;
-            int[] Memory = new int[2000];
+            
 
             while (scan.hasNextLine()) {
                 String line = scan.nextLine().trim();
