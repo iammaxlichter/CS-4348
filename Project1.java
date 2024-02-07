@@ -5,21 +5,160 @@ import java.util.Scanner;
 public class Project1 {
     int[] Memory = new int[2000];
 
-    public void ParentFunction(){
-        //put pc=0 sp=0 ir=0, ac=0 in here
+    public void ParentFunction() {
+        int PC = 0, SP = 0, IR = 0, AC = 0;
+        int X = 0, Y = 0;
+        Switch(PC, SP, IR, AC, X, Y);
     }
 
-    public void Switch(){
-        //put switch statement in here
+    public void Switch(int PC, int SP, int IR, int AC, int X, int Y) {
+        int i = 0;
+        while (i < Memory.length) {
+            String line = Integer.toString(Memory[i]).trim();
+
+            String[] parts = line.split("//");
+            if (parts.length > 0) {
+                line = parts[0].trim();
+            }
+
+            if (line.isEmpty()) {
+                i++;
+                continue;
+            }
+
+            switch (line) {
+                case "1": //Load Value
+                    if (++i < Memory.length) {
+                        AC = Memory[i];
+                    }
+                    break;
+
+                case "8": //Get 
+                    int randomNumber = new Random().nextInt(100) + 1;
+                    AC = randomNumber;
+                    break;
+
+                case "9": //Put
+                    if (++i < Memory.length) {
+                        String nextLine = Integer.toString(Memory[i]);
+                        switch (nextLine) {
+                            case "1":
+                                System.out.print(AC);
+                                break;
+                            case "2":
+                                System.out.print((char) AC);
+                                break;
+                            default:
+                                
+                        }
+                    }
+                    break;
+
+                case "10": //AddX
+                    AC = AC + X;
+                    break;
+
+                case "11": //AddY
+                    AC = AC + Y;
+                    break;
+
+                case "12": //SubX
+                    AC = AC - X;
+                    break;
+
+                case "13": //SubY
+                    AC = AC - Y;
+                    break;
+
+                case "14": //CopyToX
+                    X = AC;
+                    break;
+
+                case "15": //CopyFromX
+                    AC = X;
+                    break;
+                    
+                case "16": //CopyToY
+                    Y = AC;
+                    break;
+                
+                case "17": //CopyFromY
+                    AC = Y;
+                    break;
+                
+                case "18": //CopyToSP
+                    SP = AC;
+                    break;
+
+                case "19": //CopyFromSP
+                    AC = SP;
+                    break;
+
+                case "23": //call address
+  
+                    break;
+
+                case "24": //return address
+
+                    break;
+
+                case "25": //IncX
+                    X++;
+                    break;
+
+                case "26": //DecX
+                    X--;
+                    break;
+
+                case "27": //Push
+                    break;
+
+                case "28": //Pop
+                    break;
+
+                case "29": //Int System Call
+                    break;
+            
+                case "30": //IRet Return from system call
+                    break;
+
+
+                case "50":
+                    return;
+
+                default:
+                    System.out.println("Not a recognized command: " + line);
+            }
+            i++;
+        }
     }
 
-    public void ChildFuntion(){
-        
+    public void FileRead(String fileName) {
+        try {
+            File file = new File(fileName);
+            Scanner scan = new Scanner(file);
+
+            int i = 0;
+            while (scan.hasNextLine() && i < Memory.length) {
+                String line = scan.nextLine().trim();
+
+                String[] parts = line.split("//");
+                if (parts.length > 0) {
+                    line = parts[0].trim();
+                }
+
+                Memory[i++] = Integer.parseInt(line);
+            }
+
+            scan.close();
+            ParentFunction();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + e.getMessage());
+        } catch (NumberFormatException e) {
+            System.out.println("Error parsing instruction: " + e.getMessage());
+        }
     }
 
-    public void FileRead(){
-        //put file read in here
-    }
     public static void main(String[] args) {
         if (args.length != 1) {
             System.out.println("Usage: java Project1 <input_file>");
@@ -27,115 +166,7 @@ public class Project1 {
         }
         String fileName = args[0];
 
-        try {
-            File file = new File(fileName);
-            Scanner scan = new Scanner(file);
-
-            int PC = 0, SP = 0, IR = 0, AC = 0;
-            int X = 0, Y = 0;
-            
-
-            while (scan.hasNextLine()) {
-                String line = scan.nextLine().trim();
-
-                // Split the line by "//" and only consider the part before the delimiter
-                String[] parts = line.split("//");
-                if (parts.length > 0) {
-                    line = parts[0].trim(); // Take the part before the delimiter
-                }
-
-                // Ignore empty lines
-                if (line.isEmpty()) {
-                    continue;
-                }
-
-                switch (line) {
-
-                    case "1": // Load value
-                        if (scan.hasNextLine()) {
-                            String userInput = scan.nextLine();
-                            try {
-                                int value = Integer.parseInt(userInput);
-                                AC = value;
-                                System.out.println("Loaded value " + value + " into AC.");
-                            } catch (NumberFormatException e) {
-                                System.out.println("Invalid input. Please enter a valid integer.");
-                            }
-                        } else {
-                            System.out.println("No input found after '1'.");
-                        }
-                        break;
-
-                    case "2": // Load addr
-
-                        break;
-
-                    case "8": // Get
-                        int randomNumber = new Random().nextInt(100) + 1;
-
-                        AC = randomNumber;
-                        System.out.println("Random number assigned to AC is: " + AC);
-                        break;
-
-                    case "9": // Put
-                        if (scan.hasNextLine()) {
-                            String nextLine = scan.nextLine();
-                            switch (nextLine) {
-                                case "1":
-                                    System.out.println("AC as an int: " + AC);
-                                    break;
-                                case "2":
-                                    System.out.println("AC as a char: " + (char) AC);
-                                    break;
-                                default:
-                                    System.out.println("Invalid input after '9': " + nextLine);
-                            }
-                        } else {
-                            System.out.println("No input found after '9'");
-                        }
-                        break;
-
-                    case "10": // AddX
-                        AC = X + AC;
-                        System.out.println("adding " + X + " to the AC, AC is now: " + AC);
-                        break;
-
-                    case "11": // AddY
-                        AC = Y + AC;
-                        System.out.println("adding " + Y + " to the AC, AC is now: " + AC);
-                        break;
-
-                    case "14": // CopyToX
-                        X = AC;
-                        System.out.println("X is now: " + X);
-                        break;
-
-                    case "16": // CopyToY
-                        Y = AC;
-                        System.out.println("Y is now: " + Y);
-                        break;
-
-                    case "50": // End
-                        System.out.println("End of execution.");
-                        return; // Terminate the program
-
-                    default:
-                        System.out.println("Not a recognized command: ");
-                }
-            }
-            scan.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found: " + e.getMessage());
-        }
+        Project1 project = new Project1();
+        project.FileRead(fileName);
     }
-
-    // // Find the next available index in the array AC
-    // private static int findNextAvailableIndex(int[] array) {
-    // for (int i = 0; i < array.length; i++) {
-    // if (array[i] == 0) {
-    // return i;
-    // }
-    // }
-    // return -1; // Array is full
-    // }
 }
