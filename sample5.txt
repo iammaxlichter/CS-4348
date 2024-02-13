@@ -12,4 +12,5 @@
 1   // Load 10=newline
 10 
 9   // Put 2
+2
 24  // Return 
