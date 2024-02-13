@@ -4,7 +4,7 @@ import java.util.Scanner;
 import java.util.Stack;
 
 public class Project1 {
-    int[] Memory = new int[20];
+    int[] Memory = new int[200];
 
     public void ParentFunction() {
         int PC = 0, SP = 0, IR = 0, AC = 0;
