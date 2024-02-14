@@ -1,7 +1,6 @@
 import java.io.*;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.Stack;
 
 public class Project1 {
     int[] Memory = new int[200];
@@ -27,13 +26,71 @@ public class Project1 {
                 continue;
             }
 
-            
             switch (line) {
                 case "1": // Load Value
-                
                     if (++i < Memory.length) {
                         AC = Memory[i];
                     }
+                    break;
+
+                case "2": // Load address
+                    if (++i < Memory.length) {
+                        int address = Memory[i];
+                        // Check if the address is within bounds
+                        if (address >= 0 && address < Memory.length) {
+                            AC = Memory[address];
+                        } else {
+                            System.out.println("Invalid memory address: " + address);
+                        }
+                    }
+                    break;
+
+                case "3": // LoadInd address
+                    break;
+
+                case "4": // LoadIdxX address
+                    if (++i < Memory.length) {
+                        int address = Memory[i] + X;
+                        // Check if the address is within bounds
+                        if (address >= 0 && address < Memory.length) {
+                            AC = Memory[address];
+                        } else {
+                            System.out.println("Invalid memory address: " + address);
+                        }
+                    }
+                    break;
+
+                case "5": // LoadIdxY address
+                    if (++i < Memory.length) {
+                        int address = Memory[i] + Y;
+                        // Check if the address is within bounds
+                        if (address >= 0 && address < Memory.length) {
+                            AC = Memory[address];
+                        } else {
+                            System.out.println("Invalid memory address: " + address);
+                        }
+                    }
+                    break;
+
+                case "6": // LoadSpX
+                    int address = SP + X;
+                    if (address >= 0 && address < Memory.length) {
+                        AC = Memory[address];
+                    } else {
+                        System.out.println("Invalid memory address: " + address);
+                    }
+                    break;
+
+                case "7": // Store addr
+                if (++i < Memory.length) {
+                    int storeAddress  = Memory[i];
+                    // Check if the address is within bounds
+                    if (storeAddress  >= 0 && storeAddress  < Memory.length) {
+                        Memory[storeAddress ] = AC; // Store the value in the AC into the memory at the address
+                    } else {
+                        System.out.println("Invalid memory address: " + storeAddress );
+                    }
+                }
                     break;
 
                 case "8": // Get
@@ -41,18 +98,16 @@ public class Project1 {
                     AC = randomNumber;
                     break;
 
-                    case "9": // Put
+                case "9": // Put
                     if (++i < Memory.length) {
                         String nextLine = Integer.toString(Memory[i]);
-                        //System.out.println("\n" + nextLine + " " + AC);
-                        
                         switch (nextLine) {
                             case "1":
                                 System.out.print(AC);
                                 break;
                             case "2":
                                 System.out.print((char) AC);
-                                
+
                                 break;
                             default:
                                 // Handle other cases if necessary
@@ -100,6 +155,29 @@ public class Project1 {
                     AC = SP;
                     break;
 
+                case "20": // jump address
+                    if (++i < Memory.length) {
+                        i = Memory[i] - 1; // Jump to the specified address
+                    }
+                    break;
+
+                case "21": // JumpIfEqual Adress (AC = 0)
+                    if (AC == 0 && ++i < Memory.length) {
+                        i = Memory[i] - 1; // Jump to the specified address
+                    }
+                    break;
+
+                case "22": // JumpIfNotEqual Address (if AC != 0)
+                    if (AC != 0) {
+                        // Ignore the next number in the command line
+                        if (++i < Memory.length) {
+                            i++;
+                        }
+                    } else if (++i < Memory.length) {
+                        i = Memory[i] - 1; // Jump to the specified address
+                    }
+                    break;
+
                 case "23": // call address
                     if (++i < Memory.length) {
                         returnAddress = i + 1; // Store the return address
@@ -112,7 +190,7 @@ public class Project1 {
                     break;
 
                 case "25": // IncX
-                    X++;
+                    X = X + 1;
                     break;
 
                 case "26": // DecX
@@ -138,7 +216,7 @@ public class Project1 {
                     System.out.println("Not a recognized command: " + line);
             }
             i++;
-            
+
         }
     }
 
@@ -167,8 +245,6 @@ public class Project1 {
             System.out.println("Error parsing instruction: " + e.getMessage());
         }
     }
-
-   
 
     public static void main(String[] args) {
         if (args.length != 1) {
