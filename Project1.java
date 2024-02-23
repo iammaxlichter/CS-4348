@@ -13,15 +13,9 @@ public class Project1 {
     private static class CPU {
 
         // Creating all of my variables I will be using throughout the program
-        private Scanner inpMem;
-        private PrintWriter outMem;
-        private int Clock, interruptTimeout;
-        private int SP;
-        private int AC;
-        private int PC;
-        private int IR;
-        private int X;
-        private int Y;
+        private final Scanner inpMem;
+        private final PrintWriter outMem;
+        private int Clock, interruptTimeout, SP, AC, PC, IR, X, Y;
         private boolean Kernel;
 
         // Constructor that intializes the CPU object with the provided memory input,
@@ -73,18 +67,19 @@ public class Project1 {
                     // Saving the values of the PC, IR, AC, X, and Y onto the stack. Each is
                     // decremented by the stack pointer position '--SP' to ensure that they are
                     // stored sequentially in the memory
-                    write(--SP, SPTemporary);
-                    write(--SP, PC);
-                    write(--SP, IR);
-                    write(--SP, AC);
-                    write(--SP, X);
-                    write(--SP, Y);
+                    writeStack(--SP, SPTemporary, PC, IR, AC, X, Y);
 
                     PC = 1000;
                 }
             }
         }
 
+        public void writeStack(int... values) {
+            for (int value : values) {
+                write(--SP, value);
+            }
+        }
+        
         // Method responsible for sneding a write command to the memory process with the
         // specified address and data
         public void write(int address, int data) {
@@ -116,221 +111,167 @@ public class Project1 {
             return Integer.parseInt(inpMem.nextLine());
         }
 
+
         public boolean instructionExe() {
             switch (IR) {
 
-                case 1: // Load value; Load the value into the AC.
-                    IR = read(PC++); // Reading the next line in the txt file and storing it in the IR
-                    AC = IR; // Lets the AC equal the value of IR
-                    break;
+                // Load value; Load the value into the AC.
+                case 1 -> { IR = read(PC++); // Reading the next line in the txt file and storing it in the IR
+                    AC = IR; } // Lets the AC equal the value of IR
 
-                case 2: // Load addr; Load the value at the address into the AC
-                    IR = read(PC++); // Reading the next line in the txt file and storing it in the IR
-                    AC = read(IR); // Lets the AC equal the value at the stored address IR
-                    break;
+                // Load addr; Load the value at the address into the AC
+                case 2 -> { IR = read(PC++); // Reading the next line in the txt file and storing it in the IR
+                    AC = read(IR); } // Lets the AC equal the value at the stored address IR
 
-                /*
-                 * Load the value from the address found in the given address into the AC (for
-                 * example, if LoadInd 500, and 500 contains 100, then load from 100).
-                 */
-                case 3:
-                    IR = read(PC++); // Reading the next line in the txt file and storing it in the IR
-                    AC = read(read(IR)); // lets the AC equal the value of the value of the value at the stored address
-                                         // IR above
-                    break;
+                // LoadInd addr; Load the value from the address found in the given address into the AC
+                case 3 -> { IR = read(PC++); // Reading the next line in the txt file and storing it in the IR
+                    AC = read(read(IR)); } // Lets the AC equal the value of the value of the value at the stored address
 
-                /*
-                 * LoadIdxX addr; Load the value at (address+X) into the AC
-                 * (for example, if LoadIdxX 500, and X contains 10, then load from 510).
-                 */
-                case 4:
-                    IR = read(PC++); // Reading the next line in the txt file and storing it in the IR
-                    AC = read(IR + X); // Equating the AC to the addition of the previously read address and X
-                    break;
+                // LoadIdxX addr; Load the value at (address+X) into the AC
+                case 4 -> { IR = read(PC++); // Reading the next line in the txt file and storing it in the IR
+                    AC = read(IR + X); } // Equating the AC to the addition of the previously read address and X
 
-                case 5: // LoadIdxY addr; Load the value at (address+Y) into the AC
-                    IR = read(PC++); // Reading the next line in the txt file and storing it in the IR
-                    AC = read(IR + Y); // Equating the AC to the addition of the previously read address and Y
-                    break;
+                // LoadIdxY addr; Load the value at (address+Y) into the AC
+                case 5 -> { IR = read(PC++); // Reading the next line in the txt file and storing it in the IR
+                    AC = read(IR + Y); } // Equating the AC to the addition of the previously read address and Y
 
-                case 6: // LoadSpX; Load from (Sp+X) into the AC (if SP is 990, and X is 1, load from
-                        // 991).
-                    AC = read(SP + X); // Reading the value from the memory address calculated as SP + X
-                    break;
+                // LoadSpX; Load from (Sp+X) into the AC
+                case 6 -> { AC = read(SP + X); } // Reading the value from the memory address calculated as SP + X
 
-                case 7: // Store addr; Store the value in the AC into the address
-                    IR = read(PC++); // Reading the next line in the txt file and storing it in the IR
-                    write(IR, AC); // Writing the value of the AC into memory address that IR is equated to from
-                                   // the above line
-                    break;
+                // Store addr; Store the value in the AC into the address
+                case 7 -> { IR = read(PC++); // Reading the next line in the txt file and storing it in the IR
+                    write(IR, AC); } // Writing the value of the AC into memory address that IR is equated to from
 
-                case 8: // Get; Gets a random int from 1 to 100 into the AC
-                    AC = (int) (Math.random() * 100 + 1); // Getting our random number 1-100 and putting it into the AC
-                    break;
-
-                /*
-                 * Put Port; If port=1, writes AC as an int to the screen, If port=2, writes
-                 * AC as a char to the screen
-                 */
-                case 9:
+                // Get; Gets a random int from 1 to 100 into the AC
+                case 8 -> { AC = (int) (Math.random() * 100 + 1); }  // Getting our random number 1-100 and putting it into the AC
+                
+                // Put Port; If port=1, writes AC as an int to the screen, If port=2, writes AC as a char to the screen
+                case 9 -> { 
                     IR = read(PC++); // Reading the next line in the txt file
-                    switch(IR){
-                        case 1: //If the next line = 1, print it out as a int
-                            System.out.print(AC);
-                            break;
-                        case 2: //If the next line = 2, print it out as a char
-                            System.out.print((char) AC);
-                            break;
-                        default: //If the next line is none of the above, return error
-                            System.out.println("error");
+                    switch(IR){ 
+                        case 1 -> System.out.print(AC); //If the next line = 1, print it out as a int
+                        case 2 -> System.out.print((char) AC); //If the next line = 2, print it out as a char
+                        default -> System.out.println("error"); //If the next line is none of the above, return error
                     }
+                }
 
-                case 10: // AddX; Add the value in X to the AC.
-                    AC = AC + X; // Setting the AC to the value of AC plus X
-                    break;
+                // AddX; Add the value in X to the AC.
+                case 10 -> {  AC = AC + X; } // Setting the AC to the value of AC plus X
 
-                case 11: // AddY; Add the value in Y to the AC.
-                    AC = AC + Y; // Setting the AC to the value of AC plus Y
-                    break;
+                // AddY; Add the value in Y to the AC.
+                case 11 -> { AC = AC + Y; } // Setting the AC to the value of AC plus Y
 
-                case 12: // SubX; Subtract the value in X from the AC.
-                    AC = AC - X; // Setting the AC to the value of AC minus X
-                    break;
+                // SubX; Subtract the value in X from the AC.
+                case 12 -> { AC = AC - X; } // Setting the AC to the value of AC minus X
 
-                case 13: // SubY; Subtract the value in Y from the AC.
-                    AC = AC - Y; // Setting the AC to the value of AC minus Y
-                    break;
+                // SubY; Subtract the value in Y from the AC.
+                case 13 -> { AC = AC - Y; } // Setting the AC to the value of AC minus Y
 
-                case 14: // CopyToX; Copy the value in the AC to X.
-                    X = AC; // Setting X to the value of the AC
-                    break;
+                // CopyToX; Copy the value in the AC to X.
+                case 14 -> { X = AC; } // Setting X to the value of the AC
 
-                case 15: // CopyFromX; Copy the value in X to the AC.
-                    AC = X; // Setting the AC to the value of X
-                    break;
+                // CopyFromX; Copy the value in X to the AC.
+                case 15 -> { AC = X; } // Setting the AC to the value of X
+                
+                // CopyToY; Copy the value in the AC to Y.
+                case 16 -> { Y = AC; } // Setting Y to the value of the AC
 
-                case 16: // CopyToY; Copy the value in the AC to Y.
-                    Y = AC; // Setting Y to the value of the AC
-                    break;
+                // CopyFromY; Copy the value in Y to the AC.
+                case 17 -> { AC = Y; } // Setting the AC to the value of Y
 
-                case 17: // CopyFromY; Copy the value in Y to the AC.
-                    AC = Y; // Setting the AC to the value of Y
-                    break;
+                // CopyToSP; Copy the value in AC to the SP.
+                case 18 -> { SP = AC; } // Setting the SP to the value of the AC
 
-                case 18: // CopyToSP; Copy the value in AC to the SP.
-                    SP = AC; // Setting the SP to the value of the AC
-                    break;
+                // CopyFromSP; Copy the value in SP to the AC.
+                case 19 -> { AC = SP; } // Setting the AC to the value of SP
 
-                case 19: // CopyFromSP; Copy the value in SP to the AC.
-                    AC = SP; // Setting the AC to the value of SP
-                    break;
+                /* Jump addr; Jump to the address.
+                Reading the val at the mem address specified by the PC and putting it in the IR
+                Jumping to that addy specified in the last line by equating the PC to the new IR */
+                case 20 -> { IR = read(PC++); PC = IR; }
 
-                case 20: // Jump addr; Jump to the address.
-                    IR = read(PC++); // Reading the value at the memory address specified by the PC and putting it in
-                                     // the IR
-                    PC = IR; // Jumping to that address specified in the last line by equating the PC to the
-                             // new IR
-                    break;
+                /* JumpIfEqual addr; Jump to the address only if the value in the AC is zero
+                Reading the val at the mem address specified by the PC and putting it in the IR
+                If the AC does equals zero, get that address from the last line into the PC (jumping back) */
+                case 21 -> { IR = read(PC++); 
+                    if (AC == 0) PC = IR; }
 
-                case 21: // JumpIfEqual addr; Jump to the address only if the value in the AC is zero
-                    IR = read(PC++); // Reading the value at the memory address specified by the PC and putting it in
-                                     // the IR
-                    if (AC == 0) // If the AC does equals zero, get that address from the last line into the PC
-                                 // (jumping back)
-                        PC = IR;
-                    break;
+                /* JumpIfNotEqual addr; Jump to the address only if the value in the AC is not zero
+                Reading the val at the mem address specified by the PC and putting it in the IR
+                If the AC != zero, get that address from the last line into the PC (jumping back) */
+                case 22 -> { IR = read(PC++); 
+                    if (AC != 0) PC = IR; }
 
-                case 22: // JumpIfNotEqual addr; Jump to the address only if the value in the AC is not
-                         // zero
-                    IR = read(PC++); // Reading the value at the memory address specified by the PC and putting it in
-                                     // the IR
-                    if (AC != 0) 
-                        PC = IR;
-                    break;
+                /* Call addr; Push return address onto stack, jump to the address.
+                Reads the instruction from memory at the PC and inc's the PC by 1.
+                Pushes the address of the next instruction onto the stack.
+                Setting the PC to the address specified in the instruction. */
+                case 23 -> { IR = read(PC++); 
+                    write(--SP, PC); 
+                    PC = IR; }
 
-                case 23: // Call addr; Push return address onto stack, jump to the address.
-                    IR = read(PC++); // Reads the instruction from memory at the PC and inc's the PC by 1.
-                    write(--SP, PC); // Pushes the address of the next instruction onto the stack.
-                    PC = IR; // Setting the PC to the address specified in the instruction.
-                    break;
+                /* Ret; Pop return address from the stack, jump to the address.
+                Execution returns to the last value before the push of the address onto the stack */
+                case 24 -> { PC = read(SP++); }
 
-                case 24: // Ret; Pop return address from the stack, jump to the address.
-                    PC = read(SP++);
-                    ; // Execution returns to the last value before the push of the address onto the
-                      // stack
-                    break;
+                // IncX; Increment the value in X.
+                case 25 -> { X = X + 1; } // Add 1 to X
 
-                case 25: // IncX; Increment the value in X.
-                    X = X + 1; // Add 1 to X
-                    break;
+                // DecX; Decrement the value in X.
+                case 26 -> { X = X - 1; } // Subtract 1 from X
 
-                case 26: // DecX; Decrement the value in X.
-                    X = X - 1; // Subtract 1 from X
-                    break;
+                // Push; Push AC onto stack.
+                case 27 -> { write(--SP, AC); } // Calls the push of the value at AC onto the stack
 
-                case 27: // Push; Push AC onto stack.
-                    write(--SP, AC); // Calls the push of the value at AC onto the stack
-                    break;
+                // Pop; Pop from stack into AC.
+                case 28 -> { AC = read(SP++); } // AC is equal to the top of the stack
 
-                case 28: // Pop; Pop from stack into AC.
-                    AC = read(SP++); // AC is equal to the top of the stack
-                    break;
-
-                case 29: // Int; Perform system call. Enter's the kernel and sets the execution at
-                         // address 1500
+                case 29 -> { // Int; Perform system call. Enter's the kernel and sets the execution at address 1500
                     if (!Kernel) {
+                        
+                        // Flagging to enter the kernel
+                        Kernel = true;
 
-                        Kernel = true; // Flagging to enter the kernel
-                        // Saving the stack pointer (2000 indicates the start of the kernel mode stack
-                        // (top of it))
-                        int SPTemporary = SP;
+                        /* Saving the stack pointer (2000 indicates the start of the kernel mode stack
+                         (top of it)) */
                         SP = 2000;
 
-                        // Saving the values of the PC, IR, AC, X, and Y onto the stack. Each is
-                        // decremented by the stack pointer position '--SP' to ensure that they are
-                        // stored sequentially in the memory
-                        write(--SP, SPTemporary);
-                        write(--SP, PC);
-                        write(--SP, IR);
-                        write(--SP, AC);
-                        write(--SP, X);
-                        write(--SP, Y);
+                        /* Saving the values of the PC, IR, AC, X, and Y onto the stack. Each is
+                        decremented by the stack pointer position '--SP' to ensure that they are
+                        stored sequentially in the memory */
+                        writeStack(SP, PC, IR, AC, X, Y);
 
                         PC = 1500; // executation is at address is 1500
                     }
-                    break;
+                }
 
-                case 30: // IRet; Return from system call. Essentially removes everything from the stack
-                         // and returns from the kernel
+                case 30 -> { // IRet; Return from system call. Essentially removes everything from the stack and returns from the kernel
+                    Y = read(SP++);  // Read the val from the top of the stack and assign it to the Y register
+                    X = read(SP++);  // Read the val from the top of the stack and assign it to the X register
+                    AC = read(SP++);  // Read the val from the top of the stack and assign it to the AC register
+                    IR = read(SP++);  // Read the val from the top of the stack and assign it to the Inst Reg (IR)
+                    PC = read(SP++); // Read the val from the top of the stack and assign it to the Program Counter
+                    SP = read(SP++); /*  Read the value from the top of the stack and assign it to the Stack Pointer
+                                         (SP), effectively removing everything from the stack*/
+                    Kernel = false; // Set the Kernel mode flag to false, indicating that the CPU is no longer in Kernel mode
+                }
 
-                    Y = read(SP++); // Read the value from the top of the stack and assign it to the Y register
-                    X = read(SP++); // Read the value from the top of the stack and assign it to the X register
-                    AC = read(SP++); // Read the value from the top of the stack and assign it to the AC register
-                    IR = read(SP++); // Read the value from the top of the stack and assign it to the Instruction
-                                     // Register (IR)
-                    PC = read(SP++); // Read the value from the top of the stack and assign it to the Program Counter
-                                     // (PC)
-                    SP = read(SP++); // Read the value from the top of the stack and assign it to the Stack Pointer
-                                     // (SP), effectively removing everything from the stack
-
-                    Kernel = false; // Set the Kernel mode flag to false, indicating that the CPU is no longer in
-                                    // kernel mode
-                    break;
-
-                case 50: // End's the execution
+                case 50 -> { // End the execution
                     outMem.println("e");
                     outMem.flush();
                     return false;
+                }
 
-                default: // If the user submits a program without the correct instructions, the following
-                         // happens
-                    System.out.println("Instruction you typed in is NOT valid."); // Returns error statement
+                default -> { // Invalid instruction
+                    System.out.println("Invalid instruction: " + IR);
                     outMem.println("e");
                     outMem.flush();
                     return false;
+                }
             }
             return true;
         }
+
     }
 
     /*

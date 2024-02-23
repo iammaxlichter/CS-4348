@@ -15,17 +15,18 @@ public class Mem {
     }
 
     public static void main(String[] args) {
-
-        String txtFile = args[0];
-        Scanner sc = new Scanner(System.in);
+        if (args.length < 1) {
+            System.err.println("Usage: java Mem <input_file>");
+            System.exit(1);
+        }
 
         Memory = new int[2000];
-        try (Scanner fileScanner = new Scanner(new File(txtFile))) {
-            int index = 0;
+        try (Scanner fileScanner = new Scanner(new File(args[0]));
+             Scanner sc = new Scanner(System.in)) {
 
+            int index = 0;
             while (fileScanner.hasNextLine()) {
                 String line = fileScanner.nextLine().trim();
-
                 if (!line.isEmpty()) {
                     switch (line.charAt(0)) {
                         case '.' -> index = Integer.parseInt(line.substring(1).split("\\s+")[0]);
@@ -38,30 +39,28 @@ public class Mem {
                     }
                 }
             }
+
+            while (sc.hasNextLine()) {
+                String nextLine = sc.nextLine();
+                char nextCommand = nextLine.charAt(0);
+                switch (nextCommand) {
+                    case 'r' -> {
+                        int address = Integer.parseInt(nextLine.substring(1));
+                        System.out.println(read(address));
+                    }
+                    case 'w' -> {
+                        String[] params = nextLine.substring(1).split(",");
+                        write(Integer.parseInt(params[0]), Integer.parseInt(params[1]));
+                    }
+                    case 'e' -> {
+                        System.out.println("Exiting the memory program.");
+                        System.exit(0);
+                    }
+                    default -> System.out.println("Invalid command.");
+                }
+            }
         } catch (NumberFormatException | FileNotFoundException e) {
             e.printStackTrace();
         }
-
-        while (sc.hasNextLine()) {
-            String nextLine = sc.nextLine();
-            char nextCommand = nextLine.charAt(0);
-
-            switch (nextCommand) {
-                case 'r' -> {
-                    int address = Integer.parseInt(nextLine.substring(1));
-                    System.out.println(read(address));
-                }
-                case 'w' -> {
-                    String[] params = nextLine.substring(1).split(",");
-                    write(Integer.parseInt(params[0]), Integer.parseInt(params[1]));
-                }
-                case 'e' -> {
-                    System.out.println("Exiting the memory program.");
-                    System.exit(0);
-                }
-                default -> System.out.println("Invalid command.");
-            }
-        }
-        sc.close();
     }
 }
