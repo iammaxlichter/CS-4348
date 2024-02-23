@@ -251,8 +251,8 @@ public class Project1 {
                     AC = read(SP++);  // Read the val from the top of the stack and assign it to the AC register
                     IR = read(SP++);  // Read the val from the top of the stack and assign it to the Inst Reg (IR)
                     PC = read(SP++); // Read the val from the top of the stack and assign it to the Program Counter
-                    SP = read(SP++); /*  Read the value from the top of the stack and assign it to the Stack Pointer
-                                         (SP), effectively removing everything from the stack*/
+                    SP = read(SP++); /* Read the value from the top of the stack and assign it to the Stack Pointer
+                                         (SP), effectively removing everything from the stack */
                     Kernel = false; // Set the Kernel mode flag to false, indicating that the CPU is no longer in Kernel mode
                 }
 
