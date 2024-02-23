@@ -26,13 +26,14 @@ public class Project1 {
 
         // Constructor that intializes the CPU object with the provided memory input,
         // memory output, and interrupt timeout values
-        public CPU(Scanner inpMem, PrintWriter outMem, int interruptTimeout) {
-
-            // These two are used to interact with the memory component
-            this.inpMem = inpMem;
-            this.outMem = outMem;
+        public CPU(int interruptTimeout, PrintWriter outMem, Scanner inpMem) {
 
             this.interruptTimeout = interruptTimeout; // Represents the duration before an interrupt occurs
+
+            // These two are used to interact with the memory component
+            this.outMem = outMem;
+            this.inpMem = inpMem;
+            
             Kernel = false; // Indicates that the CPu starts in the User mode
 
             // Initializing all of my CPU states to zero
@@ -173,11 +174,16 @@ public class Project1 {
                  */
                 case 9:
                     IR = read(PC++); // Reading the next line in the txt file
-                    if (IR == 1) // If the next line is 1, print out the AC as a int
-                        System.out.print(AC);
-                    else if (IR == 2) // If the next line is 2, print out the AC as a char
-                        System.out.print((char) AC);
-                    break;
+                    switch(IR){
+                        case 1: //If the next line = 1, print it out as a int
+                            System.out.print(AC);
+                            break;
+                        case 2: //If the next line = 2, print it out as a char
+                            System.out.print((char) AC);
+                            break;
+                        default: //If the next line is none of the above, return error
+                            System.out.println("error");
+                    }
 
                 case 10: // AddX; Add the value in X to the AC.
                     AC = AC + X; // Setting the AC to the value of AC plus X
@@ -238,8 +244,7 @@ public class Project1 {
                          // zero
                     IR = read(PC++); // Reading the value at the memory address specified by the PC and putting it in
                                      // the IR
-                    if (AC != 0) // If the AC does not equal zero, get that address from the last line into the
-                                 // PC (jumping back)
+                    if (AC != 0) 
                         PC = IR;
                     break;
 
@@ -394,7 +399,7 @@ public class Project1 {
              * process created.
              */
             @SuppressWarnings("deprecation")
-            Process MemProc = runningTime.exec("java Memory " + txtInput);
+            Process MemProc = runningTime.exec("java Mem " + txtInput);
 
             /*
              * First line retrieves the error stream that is associated with the MemProc
@@ -416,9 +421,9 @@ public class Project1 {
              * the Memproc process to create
              * formatted text to a character output stream.
              */
-            Scanner memInp = new Scanner(MemProc.getInputStream());
             PrintWriter memOut = new PrintWriter(MemProc.getOutputStream());
-
+            Scanner memInp = new Scanner(MemProc.getInputStream());
+            
             /*
              * Creating a new instance of my CPU class with three parameters for execution,
              * then executing it
@@ -426,7 +431,7 @@ public class Project1 {
              * CPU/instruction/memory handling/
              * interrupt handling.
              */
-            CPU newCPU = new CPU(memInp, memOut, Interrupt);
+            CPU newCPU = new CPU(Interrupt, memOut, memInp);
             newCPU.Exe();
 
         }
