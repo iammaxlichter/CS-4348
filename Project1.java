@@ -74,6 +74,7 @@ public class Project1 {
             }
         }
 
+        //Writes x amount of values to the stack
         public void writeStack(int... values) {
             for (int value : values) {
                 write(--SP, value);
@@ -274,9 +275,7 @@ public class Project1 {
 
     }
 
-    /*
-     * Implements the runnable interface to handle the error stream asynchronously
-     */
+    // Implements the runnable interface to handle the error stream asynchronously
     static class ErrorStreamHandler implements Runnable {
 
         private final InputStream errorFlow; // This InputStream is to read the error stream from the process
