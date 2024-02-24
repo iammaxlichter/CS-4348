@@ -577,7 +577,6 @@
 9
 2
 
-
 1   // prints space
 32
 9
@@ -620,6 +619,14 @@
 9   
 2
 
+1   // prints newline
+10
+9
+2
+1   // prints newline
+10
+9
+2
 24
 .1000
 30   
