@@ -1,581 +1,256 @@
-23   // line one
-3
-50
-
-//LINE 1 "M"
-//
-1   // prints one space (" ")
-32
+1   // prints T
+84
 9
 2
-1   // prints one underscore ("_")
-95
-9
-2
-1   // prints 5 spaces (" ")
-32
-9
-2
-9
-2
-9
-2
-9
-2
-9
-2
-1   // prints one underscore ("_")
-95
-9
-2
-
-1   // prints 5 spaces (" ") START OF "A"
-32
-9
-2
-9
-2
-9
-2
-9
-2
-9
-2
-1   // prints one underscore ("_")
-95
-9
-2
-
-1   // prints 5 spaces (" ") START OF "X"
-32
-9
-2
-9
-2
-9
-2
-9
-2
-1   // prints one underscore ("_")
-95
-9
-2
-1   // prints 5 spaces (" ") 
-32
-9
-2
-9
-2
-9
-2
-1   // prints one underscore ("_")
-95
-9
-2
-
-1   // prints 1 spaces (" ") START OF "L"
-32
-9
-2
-9
-2
-9
-2
-9
-2
-9
-2
-9
-2
-1   // prints one underscore ("_")
-95
-9
-2
-
-1   // prints newline
-10
-9
-2
-
-
-// LINE 2 "M"
-//
-1   // prints ("|")
-124
-9
-2
-1   // prints 1 space (" ")
-32
-9
-2
-1   // prints a forwardslash ("\")
-92
-9
-2
-1   // prints 3 space (" ")
-32
-9
-2
-9
-2
-9
-2
-1   // prints a backslash ("/")
-47
-9
-2
-1   // prints 1 space (" ")
-32
-9
-2
-1   // prints ("|")
-124
-9
-2
-
-1   // prints 3 spaces (" ") START OF "A"
-32
-9
-2
-9
-2
-9
-2
-1   // prints a backslash ("/")
-47
-9
-2
-1   // prints one underscore ("_")
-95
-9
-2
-1   // prints a forwardslash ("\")
-92
-9
-2
-
-1   // prints 3 spaces (" ") START OF "X"
-32
-9
-2
-9
-2
-9
-2
-9
-2
-1   // prints a forwardslash ("\")
-92
-9
-2
-1   // prints one underscore ("_")
-95
-9
-2
-1   // prints a backslash ("/")
-47
-9
-2
-
-1   // prints 1 spaces (" ") START OF "L"
-32
-9
-2
-9
-2
-9
-2
-9
-2
-9
-2
-9
-2
-9
-2
-1   // prints ("|")
-124
-9
-2
-
-
-1   // prints newline
-10
-9
-2
-
-
-//LINE 3 "M"
-//
-1   // prints ("|")
-124
-9
-2
-1   // prints 2 spaces (" ")
-32
-9
-2
-9
-2
-1   // prints a forwardslash ("\")
-92
-9
-2
-1   // prints 1 space (" ")
-32
-9
-2
-1   // prints a backslash ("/")
-47
-9
-2
-1   // prints 2 spaces (" ")
-32
-9
-2
-9
-2
-1   // prints ("|")
-124
-9
-2
-
-1   // prints 2 spaces (" ") START OF "A"
-32
-9
-2
-9
-2
-1   // prints a backslash ("/")
-47
-9
-2
-1   // prints 2 spaces (" ") 
-32
-9
-2
-9
-2
-9
-2
-1   // prints a forwardslash ("\")
-92
-9
-2
-
-1   // prints 3 spaces (" ") START OF "X"
-32
-9
-2
-9
-2
-9
-2
-1   // prints a backslash ("/")
-47
-9
-2
-1   // prints 3 spaces (" ") 
-32
-9
-2
-1   // prints a forwardslash ("\")
-92
-9
-2
-
-1   // prints 1 spaces (" ") START OF "L"
-32
-9
-2
-9
-2
-9
-2
-9
-2
-9
-2
-9
-2
-9
-2
-1   // prints ("|")
-124
-9
-2
-
-
-1   // prints newline
-10
-9
-2
-
-
-//LINE 4 "M"
-//
-// 
-1   // prints ("|")
-124
-9
-2
-1   // prints 2 spaces (" ")
-32
-9
-2
-9
-2
-9
-2
-1   // prints 1 period (".")
-118
-9
-2
-1   // prints 2 spaces (" ")
-32
-9
-2
-9
-2
-9
-2
-1   // prints ("|")
-124
-9
-2
-
-1   // prints 1 spaces (" ") START OF "A"
-32
-9
-2
-1   // prints a backslash ("/")
-47
-9
-2
-1   // prints 5 spaces (" ") 
-32
-9
-2
-9
-2
-9
-2
-9
-2
-9
-2
-1   // prints a forwardslash ("\")
-92
-9
-2
-
-1   // prints 1 spaces (" ") START OF "X"
-32
-9
-2
-1   // prints a backslash ("/")
-47
-9
-2
-1   // prints spaces (" ") 
-32
-9
-2
-9
-2
-9
-2
-1   // prints a forwardslash ("\")
-92
-9
-2
-
-1   // prints 1 spaces (" ") START OF "L"
-32
-9
-2
-9
-2
-9
-2
-9
-2
-9
-2
-9
-2
-1   // prints ("|")
-124
-9
-2
-1   // prints one underscore ("_")
-95
-9
-2
-9
-2
-9
-2
-9
-2
-
-1   // prints 1 spaces (" ") START OF "."
-32
-9
-2
-1   //prints ("[")
-91 
-9
-2
-1   //prints ("]")
-93 
-9
-2
-
-1   // prints 2 spaces (" ") START OF "(Please give me the 6 points)"
-32
-9
-2
-9
-2
-1   // prints (
-40
-9
-2
-1   // prints P
-80
-9
-2
-1   // prints l
-108
-9
-2
-1   // prints e
-101
-9
-2
-1   // prints a
-97
-9
-2
-1   // prints s
-115
-9
-2
-1   // prints e
-101
-9
-2
-
-1   // prints space
-32
-9
-2
-
-1   // prints g
-103
+1   // prints r
+114
 9
 2
 1   // prints i
 105
 9
 2
-1   // prints v
-118
-9
-2
-1   // prints e
-101
-9
-2
-
-1   // prints space
-32
-9
-2
-
-1   // prints m
-109
-9
-2
-1   // prints e
-101
-9
-2
-
-1   // prints space
-32
-9
-2
-
-1   // prints t
-116
-9
-2
-1   // prints h
-104
-9
-2
-1   // prints e
-101
-9
-2
-
-1   // prints space
-32
-9
-2
-
-1   // prints s
-115
-9
-2
-1   // prints i
-105
-9
-2
-1   // prints x
-120
-9
-2
-
-1   // prints space
-32
-9
-2
-
-1   // prints p
-112
+1   // prints b
+98
 9
 2
 1   // prints o
 111
 9
 2
+1   // prints n
+110
+9
+2
+1   // prints a
+97
+9
+2
+1   // prints c
+99
+9
+2
+9
+2
 1   // prints i
 105
+9
+2
+
+1   // prints space
+32
+9
+2
+
+1   // prints S
+83
+9
+2
+1   // prints e
+101
+9
+2
+1   // prints q
+113
+9
+2
+1   // prints u
+117
+9
+2
+1   // prints e
+101
 9
 2
 1   // prints n
 110
 9
 2
-1   // prints t
-116
+1   // prints c
+99
 9
 2
-1   // prints s
-115
+1   // prints e
+101
 9
 2
-1   // prints !
-33
+1   // prints :
+58
+9
+2
+
+
+1   // prints space
+32
+9
+2
+
+1   // prints 0
+48
+9
+2
+1   // prints ,
+44
+9
+2
+1   // prints space
+32
+9
+2
+
+1   // prints 1
+49
+9
+2
+1   // prints ,
+44
+9
+2
+1   // prints space
+32
+9
+2
+
+1   // prints 1
+49
+9
+2
+1   // prints ,
+44
+9
+2
+1   // prints space
+32
+9
+2
+
+1   // prints 2
+50
+9
+2
+1   // prints ,
+44
+9
+2
+1   // prints space
+32
+9
+2
+
+1   // prints 4
+52
+9
+2
+1   // prints ,
+44
+9
+2
+1   // prints space
+32
+9
+2
+
+1   // prints 7
+55
+9
+2
+1   // prints ,
+44
+9
+2
+1   // prints space
+32
+9
+2
+
+1   // prints 1
+49
+9
+2
+1   // prints 3
+51
+9
+2
+1   // prints ,
+44
+9
+2
+1   // prints space
+32
+9
+2
+
+1   // prints 2
+50
+9
+2
+1   // prints 4
+52
+9
+2
+1   // prints ,
+44
+9
+2
+1   // prints space
+32
+9
+2
+
+1   // prints 44
+52
 9
 2
 9
 2
+1   // prints ,
+44
 9
 2
+1   // prints space
+32
+9
+2
+
+1   // prints 8
+56
+9
+2
+1   // prints 1
+49
+9
+2
+1   // prints ,
+44
+9
+2
+1   // prints space
+32
+9
+2
+
+1   // prints 1
+49
+9
+2
+1   // prints 4
+52
+9
+2
+1   // prints 9
+57
+9
+2
+1   // prints ,
+44
+9
+2
+1   // prints space
+32
+9
+2
+
+
 
 1   // prints space
 32
@@ -614,21 +289,13 @@
 2
 9   
 2
-1   // prints )
-41
-9   
-2
 
 1   // prints newline
 10
 9
 2
-1   // prints newline
-10
-9
-2
+50
 
 
-24
 .1000
 30   
