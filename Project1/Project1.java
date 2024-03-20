@@ -593,7 +593,6 @@ while (fileScanner.hasNextLine()) {
              * warning the program gives. The line below it calls MemProc to be the new
              * process created.
              */
-            @SuppressWarnings("deprecation")
             Process MemProc = runningTime.exec("java Project1$Mem " + txtInput);
 
             /*
