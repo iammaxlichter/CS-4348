@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 23   // line one
 3
 50
@@ -474,12 +475,21 @@
 
 1   // prints g
 103
+=======
+1   // prints T
+84
+9
+2
+1   // prints r
+114
+>>>>>>> 43f9a80a4f7ce50674b9ab5920b66212b59c397b
 9
 2
 1   // prints i
 105
 9
 2
+<<<<<<< HEAD
 1   // prints v
 118
 9
@@ -546,20 +556,71 @@
 
 1   // prints p
 112
+=======
+1   // prints b
+98
+>>>>>>> 43f9a80a4f7ce50674b9ab5920b66212b59c397b
 9
 2
 1   // prints o
 111
 9
 2
-1   // prints i
-105
-9
-2
+<<<<<<< HEAD
+=======
 1   // prints n
 110
 9
 2
+1   // prints a
+97
+9
+2
+1   // prints c
+99
+9
+2
+9
+2
+>>>>>>> 43f9a80a4f7ce50674b9ab5920b66212b59c397b
+1   // prints i
+105
+9
+2
+<<<<<<< HEAD
+=======
+
+1   // prints space
+32
+9
+2
+
+1   // prints S
+83
+9
+2
+1   // prints e
+101
+9
+2
+1   // prints q
+113
+9
+2
+1   // prints u
+117
+9
+2
+1   // prints e
+101
+9
+2
+>>>>>>> 43f9a80a4f7ce50674b9ab5920b66212b59c397b
+1   // prints n
+110
+9
+2
+<<<<<<< HEAD
 1   // prints t
 116
 9
@@ -570,12 +631,198 @@
 2
 1   // prints !
 33
+=======
+1   // prints c
+99
+9
+2
+1   // prints e
+101
+9
+2
+1   // prints :
+58
+9
+2
+
+
+1   // prints space
+32
+9
+2
+
+1   // prints 0
+48
+9
+2
+1   // prints ,
+44
+9
+2
+1   // prints space
+32
+9
+2
+
+1   // prints 1
+49
+9
+2
+1   // prints ,
+44
+9
+2
+1   // prints space
+32
+9
+2
+
+1   // prints 1
+49
+9
+2
+1   // prints ,
+44
+9
+2
+1   // prints space
+32
+9
+2
+
+1   // prints 2
+50
+9
+2
+1   // prints ,
+44
+9
+2
+1   // prints space
+32
+9
+2
+
+1   // prints 4
+52
+9
+2
+1   // prints ,
+44
+9
+2
+1   // prints space
+32
+9
+2
+
+1   // prints 7
+55
+9
+2
+1   // prints ,
+44
+9
+2
+1   // prints space
+32
+9
+2
+
+1   // prints 1
+49
+9
+2
+1   // prints 3
+51
+9
+2
+1   // prints ,
+44
+9
+2
+1   // prints space
+32
+9
+2
+
+1   // prints 2
+50
+9
+2
+1   // prints 4
+52
+9
+2
+1   // prints ,
+44
+9
+2
+1   // prints space
+32
+9
+2
+
+1   // prints 44
+52
+>>>>>>> 43f9a80a4f7ce50674b9ab5920b66212b59c397b
 9
 2
 9
 2
+<<<<<<< HEAD
 9
 2
+=======
+1   // prints ,
+44
+9
+2
+1   // prints space
+32
+9
+2
+
+1   // prints 8
+56
+9
+2
+1   // prints 1
+49
+9
+2
+1   // prints ,
+44
+9
+2
+1   // prints space
+32
+9
+2
+
+1   // prints 1
+49
+9
+2
+1   // prints 4
+52
+9
+2
+1   // prints 9
+57
+9
+2
+1   // prints ,
+44
+9
+2
+1   // prints space
+32
+9
+2
+
+
+>>>>>>> 43f9a80a4f7ce50674b9ab5920b66212b59c397b
 
 1   // prints space
 32
@@ -614,15 +861,19 @@
 2
 9   
 2
+<<<<<<< HEAD
 1   // prints )
 41
 9   
 2
+=======
+>>>>>>> 43f9a80a4f7ce50674b9ab5920b66212b59c397b
 
 1   // prints newline
 10
 9
 2
+<<<<<<< HEAD
 1   // prints newline
 10
 9
@@ -632,3 +883,10 @@
 24
 .1000
 30   
+=======
+50
+
+
+.1000
+30   
+>>>>>>> 43f9a80a4f7ce50674b9ab5920b66212b59c397b
