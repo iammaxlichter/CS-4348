@@ -2,50 +2,50 @@ import java.io.*;
 import java.util.*;
 
 public class Project3 {
-    private int[][] taskTimes;
     private List<String> taskNames;
+    private List<int[]> taskTimes;
 
-    public Project3(List<String> taskNames, int[][] taskTimes) {
+    public Project3(List<String> taskNames, List<int[]> taskTimes) {
         this.taskNames = taskNames;
         this.taskTimes = taskTimes;
     }
 
     public Map<String, Queue<Integer>> firstComeFirstServe() {
         Map<String, Queue<Integer>> resultMap = new HashMap<>();
-        int curPos = taskTimes[0][0];
-        for (int i = 0; i < taskTimes.length; i++) {
+        int currentTime = 0;
+        for (int i = 0; i < taskTimes.size(); i++) {
             String taskName = taskNames.get(i);
             Queue<Integer> timeIntervals = new LinkedList<>();
-            timeIntervals.add(curPos);
-            timeIntervals.add(curPos + taskTimes[i][1]);
+            timeIntervals.add(currentTime);
+            int endTime = currentTime + taskTimes.get(i)[1];
+            timeIntervals.add(endTime);
             resultMap.put(taskName, timeIntervals);
-            if (i != taskTimes.length - 1)
-                curPos = taskTimes[i + 1][0] > curPos + taskTimes[i][1] ? taskTimes[i + 1][0] : curPos + taskTimes[i][1];
+            currentTime = endTime;
         }
         return resultMap;
     }
 
     public Map<String, Queue<Integer>> roundRobin() {
         Map<String, Queue<Integer>> resultMap = new HashMap<>();
-        List<Integer> arrivalTimeList = new ArrayList<>();
-        List<Integer> remainTimeList = new ArrayList<>();
+        List<Integer> arrivalTimes = new ArrayList<>();
+        List<Integer> remainingTimes = new ArrayList<>();
         for (int i = 0; i < taskNames.size(); i++) {
-            arrivalTimeList.add(taskTimes[i][0]);
-            remainTimeList.add(taskTimes[i][1]);
+            arrivalTimes.add(taskTimes.get(i)[0]);
+            remainingTimes.add(taskTimes.get(i)[1]);
         }
-        String selectedTask = taskNames.get(0);
-        int selectedTaskIdx = 0;
-        int selectedTaskStartT = taskTimes[0][0];
-        int time = taskTimes[0][0];
-        int taskFinished = 0;
+        String currentTask = taskNames.get(0);
+        int currentIndex = 0;
+        int currentStartTime = taskTimes.get(0)[0];
+        int currentTime = taskTimes.get(0)[0];
+        int tasksFinished = 0;
         Queue<String> taskQueue = new LinkedList<>();
-        taskQueue.add(selectedTask);
-        int idx = selectedTaskIdx;
+        taskQueue.add(currentTask);
+        int index = currentIndex;
         while (true) {
-            idx++;
-            if (idx < taskNames.size() && arrivalTimeList.get(idx).equals(time)) {
-                String task1 = taskNames.get(idx);
-                taskQueue.add(task1);
+            index++;
+            if (index < taskNames.size() && arrivalTimes.get(index).equals(currentTime)) {
+                String nextTask = taskNames.get(index);
+                taskQueue.add(nextTask);
             } else {
                 break;
             }
@@ -53,83 +53,83 @@ public class Project3 {
         while (true) {
             String task = taskQueue.poll();
             if (task == null) {
-                time++;
-                if (arrivalTimeList.contains(time)) {
-                    int index = arrivalTimeList.indexOf(time);
-                    String nextTask = taskNames.get(index);
+                currentTime++;
+                if (arrivalTimes.contains(currentTime)) {
+                    int arrivalIndex = arrivalTimes.indexOf(currentTime);
+                    String nextTask = taskNames.get(arrivalIndex);
                     taskQueue.add(nextTask);
                     while (true) {
-                        index++;
-                        if (index < taskNames.size() && arrivalTimeList.get(index).equals(time)) {
-                            String task1 = taskNames.get(index);
-                            taskQueue.add(task1);
+                        arrivalIndex++;
+                        if (arrivalIndex < taskNames.size() && arrivalTimes.get(arrivalIndex).equals(currentTime)) {
+                            String nextArrivalTask = taskNames.get(arrivalIndex);
+                            taskQueue.add(nextArrivalTask);
                         } else {
                             break;
                         }
                     }
                 }
             } else {
-                if (!task.equals(selectedTask)) {
-                    if (remainTimeList.get(selectedTaskIdx) != 0) {
-                        Queue<Integer> queue = resultMap.get(selectedTask);
+                if (!task.equals(currentTask)) {
+                    if (remainingTimes.get(currentIndex) != 0) {
+                        Queue<Integer> queue = resultMap.get(currentTask);
                         if (queue == null)
                             queue = new LinkedList<>();
-                        queue.add(selectedTaskStartT);
-                        queue.add(time);
-                        resultMap.put(selectedTask, queue);
+                        queue.add(currentStartTime);
+                        queue.add(currentTime);
+                        resultMap.put(currentTask, queue);
                     }
-                    selectedTask = task;
-                    selectedTaskIdx = taskNames.indexOf(selectedTask);
-                    selectedTaskStartT = time;
+                    currentTask = task;
+                    currentIndex = taskNames.indexOf(currentTask);
+                    currentStartTime = currentTime;
                 }
-                int remainT = remainTimeList.get(selectedTaskIdx);
-                remainTimeList.set(selectedTaskIdx, remainT - 1);
-                time++;
-                if (arrivalTimeList.contains(time)) {
-                    int index = arrivalTimeList.indexOf(time);
-                    String nextTask = taskNames.get(index);
+                int remainingTime = remainingTimes.get(currentIndex);
+                remainingTimes.set(currentIndex, remainingTime - 1);
+                currentTime++;
+                if (arrivalTimes.contains(currentTime)) {
+                    int arrivalIndex = arrivalTimes.indexOf(currentTime);
+                    String nextTask = taskNames.get(arrivalIndex);
                     taskQueue.add(nextTask);
                     while (true) {
-                        index++;
-                        if (index < taskNames.size() && arrivalTimeList.get(index).equals(time)) {
-                            String task1 = taskNames.get(index);
-                            taskQueue.add(task1);
+                        arrivalIndex++;
+                        if (arrivalIndex < taskNames.size() && arrivalTimes.get(arrivalIndex).equals(currentTime)) {
+                            String nextArrivalTask = taskNames.get(arrivalIndex);
+                            taskQueue.add(nextArrivalTask);
                         } else {
                             break;
                         }
                     }
                 }
-                if (remainT - 1 == 0) {
-                    Queue<Integer> queue = resultMap.get(selectedTask);
+                if (remainingTime - 1 == 0) {
+                    Queue<Integer> queue = resultMap.get(currentTask);
                     if (queue == null)
                         queue = new LinkedList<>();
-                    queue.add(selectedTaskStartT);
-                    queue.add(time);
-                    resultMap.put(selectedTask, queue);
-                    taskFinished++;
-                    if (taskFinished == taskNames.size())
+                    queue.add(currentStartTime);
+                    queue.add(currentTime);
+                    resultMap.put(currentTask, queue);
+                    tasksFinished++;
+                    if (tasksFinished == taskNames.size())
                         break;
                 } else {
-                    taskQueue.add(selectedTask);
+                    taskQueue.add(currentTask);
                 }
             }
         }
         return resultMap;
     }
-
+    
     private static void printScheduling(Map<String, Queue<Integer>> scheduleMap, List<String> taskNames) {
         for (String taskName : taskNames) {
             System.out.print(taskName + " ");
             Queue<Integer> timeIntervals = scheduleMap.get(taskName);
-            int prevTimeStamp = 0;
+            int previousEndTime = 0;
             while (!timeIntervals.isEmpty()) {
-                int start = timeIntervals.poll();
-                int end = timeIntervals.poll();
-                for (int j = 0; j < start - prevTimeStamp; j++)
+                int startTime = timeIntervals.poll();
+                int endTime = timeIntervals.poll();
+                for (int j = 0; j < startTime - previousEndTime; j++)
                     System.out.print(" ");
-                for (int j = 0; j < end - start; j++)
+                for (int j = 0; j < endTime - startTime; j++)
                     System.out.print("X");
-                prevTimeStamp = end;
+                previousEndTime = endTime;
             }
             System.out.println();
         }
@@ -150,15 +150,15 @@ public class Project3 {
             }
             br.close();
 
-            Project3 project3 = new Project3(taskNames, taskTimesList.toArray(new int[0][0]));
+            Project3 project3 = new Project3(taskNames, taskTimesList);
 
             Map<String, Queue<Integer>> resultMapFCFS = project3.firstComeFirstServe();
             Map<String, Queue<Integer>> resultMapRR = project3.roundRobin();
 
-            System.out.println("The scheduling of FCFS is:");
+            System.out.println("First-Come-First-Serve Scheduling:");
             printScheduling(resultMapFCFS, taskNames);
 
-            System.out.println("\nThe scheduling of RR is:");
+            System.out.println("\nRound Robin Scheduling:");
             printScheduling(resultMapRR, taskNames);
 
         } catch (IOException e) {
