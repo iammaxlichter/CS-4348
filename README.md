@@ -6,4 +6,4 @@ Projects for Professor Ozbirn's Operating Systems Concepts class for the Spring 
 ## Projects
 1. Exploring Multiple Processes and IPC
 2. Threads and Semaphores
-3. TBD
+3. Job Scheduling
